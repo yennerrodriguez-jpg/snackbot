@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0054FF">
 
-  <!-- Comfortaa only -->
+  <!-- Comfortaa -->
   <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap" rel="stylesheet">
 
   <style>
@@ -45,13 +45,47 @@
     .logo {
       font-size: 64px;
       font-weight: 500;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
 
     .content {
       max-width: 700px;
       font-size: 16px;
       line-height: 1.6;
+    }
+
+    form {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    input, textarea {
+      font-family: Comfortaa, sans-serif;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #000;
+      border-radius: 4px;
+    }
+
+    button {
+      background: #000;
+      color: #FFE135;
+      border: none;
+      padding: 12px;
+      font-family: Comfortaa, sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    /* Honeypot field – bots see it, humans don’t */
+    .hp {
+      display: none;
     }
   </style>
 </head>
@@ -65,24 +99,25 @@
 
   <div class="content">
     <p>
-      Snackabot is a vending machine business focused on reliable service, simple design,
-      and modern automation. We place and operate machines in schools, offices, apartments,
-      laundromats, and other high-traffic locations.
+      Snackabot is a vending machine business focused on reliable service,
+      simple design, and modern automation.
     </p>
 
     <p>
-      Our goal is straightforward: dependable machines, quality products, and consistent
-      service. We build on proven vending practices while using technology to improve
-      efficiency and uptime.
+      For sales or placement inquiries, use the form below.
     </p>
 
-    <p>
-      Sales and placement inquiries:
-      <br>
-      <a href="mailto:Contactsales@snackabot.com">
-        Contactsales@snackabot.com
-      </a>
-    </p>
+    <!-- BOT-SAFE FORM -->
+    <form action="https://formspree.io/f/maqqnngz" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Message" rows="4" required></textarea>
+
+      <!-- Honeypot -->
+      <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off">
+
+      <button type="submit">Send Message</button>
+    </form>
   </div>
 
 </body>
