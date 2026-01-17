@@ -2,17 +2,137 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Report a Vending Machine Issue</title>
+  <title>Report a Vending Machine Issue | Snackabot</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Report issues with Snackabot vending machines in Providence, Rhode Island. Quick and easy form to notify us about stocked, jammed, or broken machines.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0054FF">
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #FFE135;
+      font-family: Comfortaa, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #000;
+      flex-direction: column;
+      position: relative;
+      padding: 20px;
+    }
+
+    .nav {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 16px;
+    }
+
+    .nav a {
+      color: #000;
+      text-decoration: none;
+      font-weight: 500;
+      margin-left: 15px;
+    }
+
+    .nav a:hover {
+      text-decoration: underline;
+    }
+
+    .branding {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      font-size: 64px;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .motto {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    form {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+
+    form input[type="text"],
+    form input[type="file"],
+    form textarea,
+    form select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: Comfortaa, sans-serif;
+      font-size: 14px;
+    }
+
+    form button {
+      background: #0054FF;
+      color: #fff;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    form button:hover {
+      background: #003bb5;
+    }
+
+    .instructions {
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 500;
+    }
+  </style>
 </head>
 <body>
-  <h2>Report a Vending Machine Issue</h2>
-  <p>Scan QR code or use this form to report any problem with the vending machine. The machine number is pre-filled automatically.</p>
+
+  <div class="nav">
+    <a href="index.html">Home</a>
+    <a href="Get-Snackabot.html">Get Snackabot!</a>
+    <a href="aboutus.html">About Us</a>
+  </div>
+
+  <div class="branding">
+    <h1 class="logo">Snackabot</h1>
+    <p class="motto">Reliable. Modern. Always stocked.</p>
+  </div>
 
   <form action="https://formspree.io/f/maqqqvog" method="POST" enctype="multipart/form-data">
-    <!-- Hidden machine number, prefilled via URL parameter -->
+    <p class="instructions">Scan the machine QR code or open this form. Your machine number is prefilled automatically.</p>
+
+    <!-- Hidden machine number -->
     <input type="hidden" name="machine_number" id="machine_number" value="">
 
-    <!-- Issue type dropdown -->
+    <!-- Issue type -->
     <label for="issue_type">Issue Type:</label>
     <select name="issue_type" id="issue_type" required>
       <option value="">--Select Issue--</option>
@@ -22,33 +142,30 @@
       <option value="Payment Issue">Payment Issue</option>
       <option value="Other">Other</option>
     </select>
-    <br><br>
 
     <!-- Notes -->
     <label for="notes">Additional Notes (optional):</label>
-    <textarea name="notes" id="notes" rows="4" cols="40" placeholder="Describe the problem..."></textarea>
-    <br><br>
+    <textarea name="notes" id="notes" rows="4" placeholder="Describe the problem..."></textarea>
 
-    <!-- Photo upload -->
+    <!-- Photo -->
     <label for="photo">Upload Photo (optional):</label>
     <input type="file" name="photo" id="photo" accept="image/*">
-    <br><br>
 
-    <!-- Contact info -->
+    <!-- Contact -->
     <label for="contact">Your Name / Email / Phone (optional):</label>
     <input type="text" name="contact" id="contact" placeholder="Name / Email / Phone">
-    <br><br>
 
     <button type="submit">Submit Report</button>
   </form>
 
   <script>
-    // Prefill machine number from URL query parameter
+    // Prefill machine number from URL parameter
     const urlParams = new URLSearchParams(window.location.search);
     const machineNumber = urlParams.get('machine_number');
     if(machineNumber) {
       document.getElementById('machine_number').value = machineNumber;
     }
   </script>
+
 </body>
 </html>
