@@ -1,19 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Snackabot</title>
+  <meta charset="UTF-8">
+  <title>Report a Vending Machine Issue | Snackabot</title>
 
   <!-- SEO -->
-  <meta name="description" content="Snackabot is a Providence, Rhode Island–based vending machine service operator providing automated food and drink services with a strong focus on quality, reliability, and modern automation. Serving Providence exclusively.">
+  <meta name="description" content="Report issues with Snackabot vending machines in Providence, Rhode Island. Quick and easy form to notify us about stocked, jammed, or broken machines.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Icons -->
-  <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
-
-  <!-- PWA -->
-  <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0054FF">
 
   <!-- Font -->
@@ -22,14 +15,16 @@
   <style>
     body {
       margin: 0;
-      height: 100vh;
+      min-height: 100vh;
       background: #FFE135;
-      color: #000;
+      font-family: Comfortaa, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: Comfortaa, sans-serif;
+      color: #000;
+      flex-direction: column;
       position: relative;
+      padding: 20px;
     }
 
     .nav {
@@ -52,6 +47,7 @@
 
     .branding {
       text-align: center;
+      margin-bottom: 30px;
     }
 
     .logo {
@@ -66,14 +62,63 @@
       font-weight: 500;
       letter-spacing: 0.5px;
     }
+
+    form {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+
+    form input[type="text"],
+    form input[type="file"],
+    form textarea,
+    form select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: Comfortaa, sans-serif;
+      font-size: 14px;
+    }
+
+    form button {
+      background: #0054FF;
+      color: #fff;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    form button:hover {
+      background: #003bb5;
+    }
+
+    .instructions {
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 500;
+    }
   </style>
 </head>
-
 <body>
 
   <div class="nav">
+    <a href="index.html">Home</a>
     <a href="Get-Snackabot.html">Get Snackabot!</a>
-    <a href="aboutus.html">About us</a>
+    <a href="aboutus.html">About Us</a>
   </div>
 
   <div class="branding">
@@ -81,25 +126,46 @@
     <p class="motto">Reliable. Modern. Always stocked.</p>
   </div>
 
-  <!-- Service Worker -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js');
-    }
-  </script>
+  <form action="https://formspree.io/f/maqqqvog" method="POST" enctype="multipart/form-data">
+    <p class="instructions">Scan the machine QR code or open this form. Your machine number is prefilled automatically.</p>
 
-  <!-- Shared Footer -->
-  <div id="footer"></div>
+    <!-- Hidden machine number -->
+    <input type="hidden" name="machine_number" id="machine_number" value="">
+
+    <!-- Issue type -->
+    <label for="issue_type">Issue Type:</label>
+    <select name="issue_type" id="issue_type" required>
+      <option value="">--Select Issue--</option>
+      <option value="Out of Stock">Out of Stock</option>
+      <option value="Jammed / Stuck">Jammed / Stuck</option>
+      <option value="Broken Display / Screen Issue">Broken Display / Screen Issue</option>
+      <option value="Payment Issue">Payment Issue</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <!-- Notes -->
+    <label for="notes">Additional Notes (optional):</label>
+    <textarea name="notes" id="notes" rows="4" placeholder="Describe the problem..."></textarea>
+
+    <!-- Photo -->
+    <label for="photo">Upload Photo (optional):</label>
+    <input type="file" name="photo" id="photo" accept="image/*">
+
+    <!-- Contact -->
+    <label for="contact">Your Name / Email / Phone (optional):</label>
+    <input type="text" name="contact" id="contact" placeholder="Name / Email / Phone">
+
+    <button type="submit">Submit Report</button>
+  </form>
+
   <script>
-    fetch("footer.html")
-      .then(r => r.text())
-      .then(html => {
-        document.getElementById("footer").innerHTML = html;
-      });
+    // Prefill machine number from URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const machineNumber = urlParams.get('machine_number');
+    if(machineNumber) {
+      document.getElementById('machine_number').value = machineNumber;
+    }
   </script>
 
 </body>
 </html>
-
-
-
