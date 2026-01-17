@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Report a Vending Machine Issue</title>
+</head>
+<body>
+  <h2>Report a Vending Machine Issue</h2>
+  <p>Scan QR code or use this form to report any problem with the vending machine. The machine number is pre-filled automatically.</p>
+
+  <form action="https://formspree.io/f/maqqqvog" method="POST" enctype="multipart/form-data">
+    <!-- Hidden machine number, prefilled via URL parameter -->
+    <input type="hidden" name="machine_number" id="machine_number" value="">
+
+    <!-- Issue type dropdown -->
+    <label for="issue_type">Issue Type:</label>
+    <select name="issue_type" id="issue_type" required>
+      <option value="">--Select Issue--</option>
+      <option value="Out of Stock">Out of Stock</option>
+      <option value="Jammed / Stuck">Jammed / Stuck</option>
+      <option value="Broken Display / Screen Issue">Broken Display / Screen Issue</option>
+      <option value="Payment Issue">Payment Issue</option>
+      <option value="Other">Other</option>
+    </select>
+    <br><br>
+
+    <!-- Notes -->
+    <label for="notes">Additional Notes (optional):</label>
+    <textarea name="notes" id="notes" rows="4" cols="40" placeholder="Describe the problem..."></textarea>
+    <br><br>
+
+    <!-- Photo upload -->
+    <label for="photo">Upload Photo (optional):</label>
+    <input type="file" name="photo" id="photo" accept="image/*">
+    <br><br>
+
+    <!-- Contact info -->
+    <label for="contact">Your Name / Email / Phone (optional):</label>
+    <input type="text" name="contact" id="contact" placeholder="Name / Email / Phone">
+    <br><br>
+
+    <button type="submit">Submit Report</button>
+  </form>
+
+  <script>
+    // Prefill machine number from URL query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const machineNumber = urlParams.get('machine_number');
+    if(machineNumber) {
+      document.getElementById('machine_number').value = machineNumber;
+    }
+  </script>
+</body>
+</html>
